@@ -1,65 +1,114 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useRouter } from "next/navigation";
+
+function Logo({ size = 30 }: { size?: number }) {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 2L3 20h3.6l1.5-3h7.8l1.5 3H21L12 2zm-2.6 12L12 8.5 14.6 14H9.4z"
+        fill="#d9b864"
+      />
+    </svg>
+  );
+}
+
+export default function LoginPage() {
+  const router = useRouter();
+
+  function enter(role: "agency" | "client") {
+    router.push(`/dashboard?role=${role}`);
+  }
+
+  return (
+    <main className="login">
+      <div className="brand-side">
+        <div className="logo-row">
+          <Logo />
+          <span className="tag">Aurion Clientes</span>
+        </div>
+        <div>
+          <h1>O portal onde sua agência e seus clientes se encontram.</h1>
+          <p>
+            Planejamento, aprovação de posts, envio de materiais e resultados —
+            tudo em um só lugar, com a cara da sua agência.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="foot">Versão inicial · em construção</div>
+      </div>
+
+      <div className="auth-side">
+        <h2>Entrar</h2>
+        <p className="sub">Escolha como deseja acessar.</p>
+
+        <div className="field">
+          <label htmlFor="email">E-mail</label>
+          <input
+            id="email"
+            type="email"
+            defaultValue="voce@suaagencia.com.br"
+            autoComplete="email"
+          />
         </div>
-      </main>
-    </div>
+        <div className="field">
+          <label htmlFor="password">Senha</label>
+          <input
+            id="password"
+            type="password"
+            defaultValue="demo1234"
+            autoComplete="current-password"
+          />
+        </div>
+
+        <div className="divider">acesso de demonstração</div>
+
+        <div className="role-pick">
+          <button className="role-btn" onClick={() => enter("agency")}>
+            <span className="ic a">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4" />
+              </svg>
+            </span>
+            <span>
+              <b>Entrar como Agência</b>
+              <span className="desc">
+                Visão de administrador — todos os clientes
+              </span>
+            </span>
+          </button>
+
+          <button className="role-btn" onClick={() => enter("client")}>
+            <span className="ic c">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+              </svg>
+            </span>
+            <span>
+              <b>Entrar como Cliente</b>
+              <span className="desc">
+                Visão do cliente — vê apenas a própria conta
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div className="demo-pill">Demo</div>
+    </main>
   );
 }
