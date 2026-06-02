@@ -285,3 +285,248 @@ button {
     flex: 1;
   }
 }
+
+/* ---------- AVISOS / ALERTS ---------- */
+:root {
+  --approved: #2f8a5b;
+  --approved-bg: #e3f3ea;
+  --changes: #c0563b;
+  --changes-bg: #fbe7e0;
+  --pending: #b8860b;
+}
+
+.alert {
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.alert-error {
+  background: var(--changes-bg);
+  color: var(--changes);
+  border: 1px solid #f0c8bb;
+}
+.auth-alt {
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.auth-alt a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.auth-alt a:hover {
+  color: var(--gold);
+}
+
+code {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ---------- PAINEL (dashboard) ---------- */
+.dash {
+  min-height: 100dvh;
+  background: var(--bg);
+}
+.dash-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: var(--ink);
+  color: #fff;
+}
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dash-brand-name {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+.dash-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: #cfcad8;
+}
+.btn-link {
+  background: none;
+  border: 1px solid transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: 0.12s;
+}
+.btn-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.btn-link.danger {
+  color: var(--changes);
+}
+.btn-link.danger:hover {
+  background: var(--changes-bg);
+  border-color: transparent;
+}
+
+.dash-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 32px 60px;
+}
+.dash-hello {
+  margin-bottom: 24px;
+}
+.dash-hello .kicker {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.dash-hello h1 {
+  font-size: 32px;
+}
+.dash-hello .sub {
+  color: var(--muted);
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.stat {
+  padding: 16px 20px;
+}
+.stat .k {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.stat .v {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+
+.add-form {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  gap: 14px;
+  align-items: end;
+}
+.add-form .field {
+  margin-bottom: 0;
+}
+.add-form button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  height: 42px;
+}
+
+.client-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line-2);
+}
+.client-row:last-child {
+  border-bottom: none;
+}
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+.client-info b {
+  font-size: 14px;
+  display: block;
+}
+.client-info .muted {
+  font-size: 12px;
+  color: var(--muted);
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.client-meta {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.kv {
+  font-size: 12px;
+  color: var(--muted);
+}
+.kv b {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 15px;
+  color: var(--text);
+  margin-top: 2px;
+  font-weight: 600;
+}
+.st-paid {
+  color: var(--approved);
+}
+.st-pending {
+  color: var(--pending);
+}
+.st-overdue {
+  color: var(--changes);
+}
+
+@media (max-width: 760px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .add-form {
+    grid-template-columns: 1fr;
+  }
+  .client-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .client-meta {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
