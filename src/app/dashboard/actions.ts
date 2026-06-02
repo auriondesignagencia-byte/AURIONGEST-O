@@ -41,6 +41,7 @@ export async function deleteClient(formData: FormData) {
   const supabase = await createClient();
   await supabase.from("clients").delete().eq("id", id);
   revalidatePath("/dashboard");
+  redirect("/dashboard");
 }
 
 export async function signOut() {
