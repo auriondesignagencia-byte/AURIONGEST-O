@@ -25,19 +25,23 @@ declare global {
 
 async function loadPdfJs(): Promise<PdfJs | null> {
   if (typeof window === "undefined") return null;
-  if (window.pdfjsLib) return window.pdfjsLib;
-  await new Promise<void>((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error("Falha ao carregar leitor de PDF"));
-    document.head.appendChild(s);
-  });
-  if (window.pdfjsLib) {
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+  if (!window.pdfjsLib) {
+    await new Promise<void>((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+      s.onload = () => resolve();
+      s.onerror = () =>
+        reject(new Error("Falha ao carregar leitor de PDF"));
+      document.head.appendChild(s);
+    });
+  }
+  const lib: PdfJs | undefined = window.pdfjsLib;
+  if (lib) {
+    lib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
   }
-  return window.pdfjsLib || null;
+  return lib ?? null;
 }
 
 async function extractPdfText(file: File): Promise<string> {
