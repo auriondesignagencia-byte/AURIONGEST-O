@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { updatePostStatus } from "../clients/[id]/actions";
 
 type Post = {
   id: string;
@@ -55,11 +56,29 @@ export default async function ApprovalsPage() {
                   </div>
                 </div>
                 <span
-                  className={`badge-status ${p.status === "changes" ? "st-overdue" : "st-pending"}`}
+                  className={`badge-status ${p.status === "changes" ? "st-changes" : "st-pending"}`}
                 >
                   <span className="dot" />
                   {p.status === "changes" ? "Ajustes solicitados" : "Aguardando aprovação"}
                 </span>
+                <div style={{ display: "flex", gap: 6 }}>
+                  <form action={updatePostStatus}>
+                    <input type="hidden" name="post_id" value={p.id} />
+                    <input type="hidden" name="status" value="approved" />
+                    <button type="submit" className="btn btn-sm btn-approve">
+                      Aprovar
+                    </button>
+                  </form>
+                  {p.status !== "changes" && (
+                    <form action={updatePostStatus}>
+                      <input type="hidden" name="post_id" value={p.id} />
+                      <input type="hidden" name="status" value="changes" />
+                      <button type="submit" className="btn btn-sm btn-link" style={{ color: "var(--changes)" }}>
+                        Pedir ajuste
+                      </button>
+                    </form>
+                  )}
+                </div>
               </div>
             );
           })}
